@@ -4,7 +4,7 @@ import {
   Brain, 
   LineChart, 
   Users, 
-  Cube,
+  Box,
   CheckCircle2
 } from 'lucide-react';
 
@@ -37,7 +37,7 @@ const features = [
     ]
   },
   {
-    icon: <Cube className="w-10 h-10" />,
+    icon: <Box className="w-10 h-10" />,
     number: "4️⃣",
     title: "3D Walkthroughs, OOH & Hyperlocal Targeting",
     description: [
