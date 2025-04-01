@@ -82,8 +82,8 @@ const WhyOhWow: React.FC = () => {
     <section id="why-us" className="section-padding bg-ohwow-black relative" ref={sectionRef}>
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-ohwow-gold/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-ohwow-gold/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-ohwow-purple/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-ohwow-lime/10 rounded-full blur-3xl"></div>
       </div>
       
       <div className="container mx-auto relative z-10">
@@ -105,16 +105,16 @@ const WhyOhWow: React.FC = () => {
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="flex items-start gap-4">
-                <div className="p-3 rounded-lg bg-ohwow-gold/10 border border-ohwow-gold/30 text-ohwow-gold">
+                <div className="p-3 rounded-lg bg-ohwow-purple/15 border border-ohwow-purple/30 text-ohwow-lime">
                   {feature.icon}
                 </div>
                 <div className="flex-1">
-                  <div className="text-ohwow-gold mb-1">{feature.number}</div>
+                  <div className="text-ohwow-lime mb-1">{feature.number}</div>
                   <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
                   <ul className="space-y-2">
                     {feature.description.map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-5 h-5 text-ohwow-gold mt-0.5 flex-shrink-0" />
+                        <CheckCircle2 className="w-5 h-5 text-ohwow-lime mt-0.5 flex-shrink-0" />
                         <span className="text-ohwow-white-muted">{item}</span>
                       </li>
                     ))}
@@ -128,7 +128,7 @@ const WhyOhWow: React.FC = () => {
         <div className="mt-12 text-center">
           <div className="glassmorphism inline-block px-6 py-4">
             <p className="text-lg font-semibold flex items-center justify-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-ohwow-gold" />
+              <CheckCircle2 className="w-5 h-5 text-ohwow-lime" />
               <span>Full-Scale Growth Strategies Tailored for Real Estate Developers.</span>
             </p>
           </div>

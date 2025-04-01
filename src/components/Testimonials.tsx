@@ -115,7 +115,7 @@ const Testimonials: React.FC = () => {
             <div className="md:w-2/3">
               <div className="flex mb-4">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <Star key={star} className="w-5 h-5 text-ohwow-gold fill-ohwow-gold" />
+                  <Star key={star} className="w-5 h-5 text-ohwow-lime fill-ohwow-lime" />
                 ))}
               </div>
               <blockquote className="text-xl md:text-2xl font-medium italic mb-6 text-ohwow-white">
@@ -135,26 +135,26 @@ const Testimonials: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-ohwow-white-muted">Lead Conversion</span>
-                  <span className="text-ohwow-gold font-bold">{testimonials[activeIndex].stats.leads}</span>
+                  <span className="text-ohwow-lime font-bold">{testimonials[activeIndex].stats.leads}</span>
                 </div>
                 <div className="w-full bg-white/10 h-2 rounded-full">
-                  <div className="bg-gradient-to-r from-ohwow-gold to-ohwow-gold-light h-full rounded-full" style={{width: '80%'}}></div>
+                  <div className="bg-gradient-to-r from-ohwow-purple to-ohwow-purple-light h-full rounded-full" style={{width: '80%'}}></div>
                 </div>
                 
                 <div className="flex justify-between items-center">
                   <span className="text-ohwow-white-muted">Cost Reduction</span>
-                  <span className="text-ohwow-gold font-bold">{testimonials[activeIndex].stats.cost}</span>
+                  <span className="text-ohwow-lime font-bold">{testimonials[activeIndex].stats.cost}</span>
                 </div>
                 <div className="w-full bg-white/10 h-2 rounded-full">
-                  <div className="bg-gradient-to-r from-ohwow-gold to-ohwow-gold-light h-full rounded-full" style={{width: '65%'}}></div>
+                  <div className="bg-gradient-to-r from-ohwow-purple to-ohwow-purple-light h-full rounded-full" style={{width: '65%'}}></div>
                 </div>
                 
                 <div className="flex justify-between items-center">
                   <span className="text-ohwow-white-muted">Community Engagement</span>
-                  <span className="text-ohwow-gold font-bold">{testimonials[activeIndex].stats.engagement}</span>
+                  <span className="text-ohwow-lime font-bold">{testimonials[activeIndex].stats.engagement}</span>
                 </div>
                 <div className="w-full bg-white/10 h-2 rounded-full">
-                  <div className="bg-gradient-to-r from-ohwow-gold to-ohwow-gold-light h-full rounded-full" style={{width: '90%'}}></div>
+                  <div className="bg-gradient-to-r from-ohwow-purple to-ohwow-purple-light h-full rounded-full" style={{width: '90%'}}></div>
                 </div>
               </div>
             </div>
@@ -168,7 +168,7 @@ const Testimonials: React.FC = () => {
                   key={index}
                   onClick={() => setActiveIndex(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    activeIndex === index ? 'bg-ohwow-gold scale-125' : 'bg-white/20 hover:bg-white/40'
+                    activeIndex === index ? 'bg-ohwow-purple scale-125' : 'bg-white/20 hover:bg-white/40'
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 ></button>
@@ -178,14 +178,14 @@ const Testimonials: React.FC = () => {
             <div className="flex gap-2">
               <button 
                 onClick={prevSlide} 
-                className="p-2 rounded-full border border-white/10 hover:border-ohwow-gold/50 hover:bg-white/5 transition-all duration-300"
+                className="p-2 rounded-full border border-white/10 hover:border-ohwow-purple/50 hover:bg-white/5 transition-all duration-300"
                 aria-label="Previous testimonial"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button 
                 onClick={nextSlide} 
-                className="p-2 rounded-full border border-white/10 hover:border-ohwow-gold/50 hover:bg-white/5 transition-all duration-300"
+                className="p-2 rounded-full border border-white/10 hover:border-ohwow-purple/50 hover:bg-white/5 transition-all duration-300"
                 aria-label="Next testimonial"
               >
                 <ChevronRight className="w-5 h-5" />

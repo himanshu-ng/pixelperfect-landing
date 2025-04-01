@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
-        <div className="text-ohwow-gold text-xl md:text-2xl font-montserrat font-bold">
+        <div className="text-ohwow-purple text-xl md:text-2xl font-montserrat font-bold">
           Oh.Wow
         </div>
 
@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
             <a 
               key={item}
               href={`#${item.toLowerCase().replace(' ', '-')}`}
-              className="text-ohwow-white hover:text-ohwow-gold transition-colors"
+              className="text-ohwow-white hover:text-ohwow-lime transition-colors"
             >
               {item}
             </a>
@@ -64,13 +64,13 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-ohwow-black/95 backdrop-blur-lg border-t border-ohwow-gold/20 py-4 animate-fade-in">
+        <div className="md:hidden absolute top-full left-0 w-full bg-ohwow-black/95 backdrop-blur-lg border-t border-ohwow-purple/20 py-4 animate-fade-in">
           <div className="container mx-auto px-4 flex flex-col space-y-4">
             {['Services', 'Why Us', 'Success Stories', 'Contact'].map((item) => (
               <a 
                 key={item}
                 href={`#${item.toLowerCase().replace(' ', '-')}`}
-                className="text-ohwow-white hover:text-ohwow-gold py-2 transition-colors"
+                className="text-ohwow-white hover:text-ohwow-lime py-2 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item}

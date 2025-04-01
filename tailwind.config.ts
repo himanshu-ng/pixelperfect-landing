@@ -66,8 +66,10 @@ export default {
 				// Custom colors for Oh.Wow
 				ohwow: {
 					black: '#121212',
-					gold: '#D4AF37',
-					'gold-light': '#FFDF70',
+					purple: '#5e17eb',
+					'purple-light': '#7d42f0',
+					lime: '#c1ff72',
+					'lime-light': '#d9ffa3',
 					white: '#FFFFFF',
 					'white-muted': '#EFEFEF',
 				}

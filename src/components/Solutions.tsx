@@ -71,7 +71,7 @@ const Solutions: React.FC = () => {
     <section id="services" className="section-padding bg-ohwow-black relative">
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 right-1/3 w-96 h-96 bg-ohwow-gold/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 right-1/3 w-96 h-96 bg-ohwow-purple/15 rounded-full blur-3xl"></div>
       </div>
       
       <div className="container mx-auto relative z-10">
@@ -92,7 +92,7 @@ const Solutions: React.FC = () => {
               onClick={() => setActiveTab(solution.id)}
               className={`px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-2 ${
                 activeTab === solution.id
-                  ? 'bg-ohwow-gold text-ohwow-black font-medium'
+                  ? 'bg-ohwow-purple text-white font-medium'
                   : 'bg-white/5 hover:bg-white/10 text-ohwow-white-muted'
               }`}
             >
@@ -116,16 +116,16 @@ const Solutions: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   <div className="bg-white/5 p-5 rounded-xl border border-white/10">
-                    <h4 className="text-ohwow-gold font-semibold mb-2 flex items-center gap-2">
+                    <h4 className="text-ohwow-purple font-semibold mb-2 flex items-center gap-2">
                       <span className="inline-block px-2 py-1 bg-white/5 rounded text-sm">BEFORE</span>
                     </h4>
                     <p className="text-ohwow-white-muted">
                       {activeSolution.before}
                     </p>
                   </div>
-                  <div className="bg-ohwow-gold/10 p-5 rounded-xl border border-ohwow-gold/30">
-                    <h4 className="text-ohwow-gold font-semibold mb-2 flex items-center gap-2">
-                      <span className="inline-block px-2 py-1 bg-ohwow-gold text-ohwow-black rounded text-sm">AFTER</span>
+                  <div className="bg-ohwow-lime/5 p-5 rounded-xl border border-ohwow-lime/20">
+                    <h4 className="text-ohwow-lime font-semibold mb-2 flex items-center gap-2">
+                      <span className="inline-block px-2 py-1 bg-ohwow-lime/20 text-ohwow-lime rounded text-sm">AFTER</span>
                     </h4>
                     <p className="text-ohwow-white">
                       {activeSolution.after}
@@ -141,12 +141,12 @@ const Solutions: React.FC = () => {
               
               <div className="lg:w-1/2 bg-white/5 rounded-2xl overflow-hidden relative min-h-[300px] flex items-center justify-center">
                 <div className="text-center p-8">
-                  <div className="mb-6 p-4 rounded-full bg-ohwow-gold/10 inline-block">
+                  <div className="mb-6 p-4 rounded-full bg-ohwow-purple/10 inline-block">
                     {activeSolution.icon}
                   </div>
                   <h3 className="text-xl font-bold mb-2">See Our Success Story</h3>
                   <p className="text-ohwow-white-muted mb-4">View how we implemented this solution for a leading property developer</p>
-                  <button className="inline-flex items-center text-ohwow-gold hover:underline">
+                  <button className="inline-flex items-center text-ohwow-lime hover:underline">
                     View Case Study 
                     <ExternalLink className="ml-1 h-4 w-4" />
                   </button>

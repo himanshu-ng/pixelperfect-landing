@@ -73,15 +73,15 @@
   }
   
   .gradient-text {
-    @apply bg-gradient-to-r from-ohwow-gold to-ohwow-gold-light bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-ohwow-purple to-ohwow-purple-light bg-clip-text text-transparent;
   }
   
   .oh-wow-button-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-ohwow-gold to-ohwow-gold-light hover:from-ohwow-gold-light hover:to-ohwow-gold text-ohwow-black font-semibold rounded-md transition-all duration-300 transform hover:scale-105 shadow-lg;
+    @apply px-6 py-3 bg-gradient-to-r from-ohwow-purple to-ohwow-purple-light hover:from-ohwow-purple-light hover:to-ohwow-purple text-white font-semibold rounded-md transition-all duration-300 transform hover:scale-105 shadow-lg;
   }
   
   .oh-wow-button-secondary {
-    @apply px-6 py-3 border-2 border-ohwow-gold text-ohwow-gold hover:bg-ohwow-gold/10 font-semibold rounded-md transition-all duration-300 transform hover:scale-105;
+    @apply px-6 py-3 border-2 border-ohwow-lime text-ohwow-lime hover:bg-ohwow-lime/10 font-semibold rounded-md transition-all duration-300 transform hover:scale-105;
   }
   
   .glassmorphism {
