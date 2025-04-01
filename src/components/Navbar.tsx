@@ -27,8 +27,12 @@ const Navbar: React.FC = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
-        <div className="text-ohwow-purple text-xl md:text-2xl font-montserrat font-bold">
-          Oh.Wow
+        <div className="flex items-center">
+          <img 
+            src="/lovable-uploads/7beed18f-46a7-41e4-ad7a-29eeec799c4e.png" 
+            alt="Oh.Wow Logo" 
+            className="h-10 md:h-12"
+          />
         </div>
 
         {/* Desktop Navigation */}
