@@ -6,6 +6,9 @@ import {
   Paintbrush,
   UsersRound,
   BrainCircuit,
+  BarChart3,
+  Mail,
+  MessageSquare,
   ExternalLink,
   ArrowRight
 } from 'lucide-react';
@@ -37,6 +40,22 @@ const solutions: Solution[] = [
     after: "Targeted campaigns with 40% reduction in cost per acquisition"
   },
   {
+    id: "funnels",
+    icon: <BarChart3 className="w-6 h-6" />,
+    title: "🔄 High-Converting Funnels & Automation",
+    description: "Multi-step conversion funnels that transform cold leads into warm prospects and paying customers.",
+    before: "Disjointed customer journey with leaky conversion points",
+    after: "Seamless funnel with 250% increase in lead-to-sale conversion rate"
+  },
+  {
+    id: "email",
+    icon: <Mail className="w-6 h-6" />,
+    title: "📧 Email Sequences & Retargeting",
+    description: "Behavior-based email triggers and automated follow-ups for personalized investor communication.",
+    before: "Generic mass emails with low open and click rates",
+    after: "Personalized sequences achieving 65% open rates and 4x ROI"
+  },
+  {
     id: "branding",
     icon: <Paintbrush className="w-6 h-6" />,
     title: "🎨 Branding & Positioning for Maximum Recall",
@@ -51,6 +70,14 @@ const solutions: Solution[] = [
     description: "Build and nurture powerful relationships with key stakeholders through targeted engagement programs.",
     before: "Inconsistent broker relationships and low referral rates",
     after: "Loyal broker network delivering 70% of qualified leads"
+  },
+  {
+    id: "chatbots",
+    icon: <MessageSquare className="w-6 h-6" />,
+    title: "💬 AI Chatbots & Conversational Sales",
+    description: "24/7 intelligent chat solutions that qualify leads, answer queries, and book appointments automatically.",
+    before: "Lost leads due to delayed responses and unavailability",
+    after: "Instant engagement capturing 90% more leads outside business hours"
   },
   {
     id: "ai",
@@ -80,24 +107,24 @@ const Solutions: React.FC = () => {
             Solutions & Services
           </h2>
           <p className="text-xl text-ohwow-white-muted max-w-3xl mx-auto">
-            Comprehensive strategies and tools for every aspect of real estate growth
+            Comprehensive digital marketing, automation & conversion strategies for real estate growth
           </p>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
+        {/* Tab Navigation - scrollable on mobile */}
+        <div className="flex overflow-x-auto pb-3 mb-10 gap-3 justify-start md:justify-center">
           {solutions.map((solution) => (
             <button
               key={solution.id}
               onClick={() => setActiveTab(solution.id)}
-              className={`px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 activeTab === solution.id
                   ? 'bg-ohwow-purple text-white font-medium'
                   : 'bg-white/5 hover:bg-white/10 text-ohwow-white-muted'
               }`}
             >
               {solution.icon}
-              <span className="hidden sm:inline">{solution.title.split(' ').slice(1).join(' ')}</span>
+              <span className="inline">{solution.title.split(' ')[0]}</span>
             </button>
           ))}
         </div>
@@ -133,10 +160,15 @@ const Solutions: React.FC = () => {
                   </div>
                 </div>
 
-                <button className="oh-wow-button-primary flex items-center">
-                  Book a Free Strategy Call
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </button>
+                <div className="flex flex-wrap gap-4">
+                  <button className="oh-wow-button-primary flex items-center">
+                    Book a Free Strategy Call
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </button>
+                  <a href="/case-studies" className="oh-wow-button-secondary flex items-center">
+                    View Related Case Study
+                  </a>
+                </div>
               </div>
               
               <div className="lg:w-1/2 bg-white/5 rounded-2xl overflow-hidden relative min-h-[300px] flex items-center justify-center">
@@ -146,10 +178,10 @@ const Solutions: React.FC = () => {
                   </div>
                   <h3 className="text-xl font-bold mb-2">See Our Success Story</h3>
                   <p className="text-ohwow-white-muted mb-4">View how we implemented this solution for a leading property developer</p>
-                  <button className="inline-flex items-center text-ohwow-lime hover:underline">
+                  <a href="/case-studies" className="inline-flex items-center text-ohwow-lime hover:underline">
                     View Case Study 
                     <ExternalLink className="ml-1 h-4 w-4" />
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

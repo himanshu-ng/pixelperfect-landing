@@ -17,10 +17,10 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 47 62% 52%;
+    --primary: 261 83% 51%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: 84 100% 50%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
@@ -86,5 +86,26 @@
   
   .glassmorphism {
     @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl;
+  }
+  
+  /* Additional styles for case studies */
+  .prose {
+    @apply text-ohwow-white-muted;
+  }
+  
+  .prose h2, .prose h3, .prose h4 {
+    @apply text-ohwow-white font-montserrat;
+  }
+  
+  .prose strong {
+    @apply text-ohwow-white font-semibold;
+  }
+  
+  .prose a {
+    @apply text-ohwow-lime hover:text-ohwow-purple-light;
+  }
+  
+  .prose ul {
+    @apply list-none pl-0;
   }
 }
