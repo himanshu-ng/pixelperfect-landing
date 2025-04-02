@@ -9,6 +9,7 @@ import {
   BarChart3, 
   ChevronRight 
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const MarketingShowcase: React.FC = () => {
   const marketingCategories = [
@@ -100,9 +101,9 @@ const MarketingShowcase: React.FC = () => {
             </div>
             <h4 className="text-lg font-bold mb-2">Precision Ad Targeting</h4>
             <p className="text-ohwow-white-muted mb-4">Hyper-targeted campaigns for 40% higher conversion rates</p>
-            <a href="/case-studies" className="text-ohwow-lime font-medium flex items-center hover:underline">
+            <Link to="/case-studies" className="text-ohwow-lime font-medium flex items-center hover:underline">
               View case study <ChevronRight className="w-4 h-4 ml-1" />
-            </a>
+            </Link>
           </div>
           
           <div className="bg-gradient-to-br from-ohwow-purple/20 to-ohwow-purple/5 p-6 rounded-xl border border-ohwow-purple/30 flex flex-col items-center text-center">
@@ -111,9 +112,9 @@ const MarketingShowcase: React.FC = () => {
             </div>
             <h4 className="text-lg font-bold mb-2">Multi-Step Conversion Funnel</h4>
             <p className="text-ohwow-white-muted mb-4">Turning cold prospects into committed buyers</p>
-            <a href="/case-studies" className="text-ohwow-lime font-medium flex items-center hover:underline">
+            <Link to="/case-studies" className="text-ohwow-lime font-medium flex items-center hover:underline">
               View case study <ChevronRight className="w-4 h-4 ml-1" />
-            </a>
+            </Link>
           </div>
           
           <div className="bg-gradient-to-br from-ohwow-purple/20 to-ohwow-purple/5 p-6 rounded-xl border border-ohwow-purple/30 flex flex-col items-center text-center md:col-span-2 lg:col-span-1">
@@ -122,17 +123,17 @@ const MarketingShowcase: React.FC = () => {
             </div>
             <h4 className="text-lg font-bold mb-2">Email Marketing Automation</h4>
             <p className="text-ohwow-white-muted mb-4">Personalized sequences with 65% open rates</p>
-            <a href="/case-studies" className="text-ohwow-lime font-medium flex items-center hover:underline">
+            <Link to="/case-studies" className="text-ohwow-lime font-medium flex items-center hover:underline">
               View case study <ChevronRight className="w-4 h-4 ml-1" />
-            </a>
+            </Link>
           </div>
         </div>
         
         <div className="text-center mt-12">
-          <a href="/case-studies" className="oh-wow-button-primary inline-flex items-center">
+          <Link to="/case-studies" className="oh-wow-button-primary inline-flex items-center">
             Explore All Case Studies
             <ChevronRight className="ml-1 h-5 w-5" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

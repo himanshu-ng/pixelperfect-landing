@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, LineChart, Target, Users, ArrowRight } from 'lucide-react';
-import { getCaseStudyById } from '../data/caseStudies';
+import { getCaseStudyById, caseStudies } from '../data/caseStudies';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -23,6 +23,10 @@ const CaseStudyDetail: React.FC = () => {
   if (!caseStudy) {
     return null;
   }
+
+  // Find next case study for navigation
+  const currentIndex = caseStudies.findIndex(study => study.id === id);
+  const nextCaseStudy = caseStudies[(currentIndex + 1) % caseStudies.length];
 
   return (
     <div className="min-h-screen bg-ohwow-black text-white">
@@ -46,7 +50,7 @@ const CaseStudyDetail: React.FC = () => {
                   {caseStudy.category}
                 </span>
               </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 gradient-text">
                 {caseStudy.title}
               </h1>
               <p className="text-xl text-ohwow-white-muted mb-6">
@@ -62,6 +66,13 @@ const CaseStudyDetail: React.FC = () => {
                   </div>
                 ))}
               </div>
+              
+              {/* Floating CTA */}
+              <div className="mt-8 md:hidden">
+                <button className="oh-wow-button-primary w-full">
+                  Get Similar Results for Your Project
+                </button>
+              </div>
             </div>
             
             <div className="md:w-1/2 lg:w-2/5">
@@ -71,6 +82,13 @@ const CaseStudyDetail: React.FC = () => {
                   alt={caseStudy.title} 
                   className="w-full h-full object-cover" 
                 />
+              </div>
+              
+              {/* Desktop CTA next to image */}
+              <div className="hidden md:block mt-6">
+                <button className="oh-wow-button-primary w-full">
+                  Get Similar Results for Your Project
+                </button>
               </div>
             </div>
           </div>
@@ -132,6 +150,14 @@ const CaseStudyDetail: React.FC = () => {
                 </div>
               </div>
               
+              {/* Mid-content CTA */}
+              <div className="my-8 p-6 bg-ohwow-purple/15 border border-ohwow-purple/30 rounded-lg text-center">
+                <h3 className="text-xl font-bold mb-3">Want to see these strategies in action?</h3>
+                <button className="oh-wow-button-primary">
+                  Schedule a Demo
+                </button>
+              </div>
+              
               <h2 className="text-2xl font-bold mb-6 gradient-text inline-block">The Results</h2>
               <p className="mb-6">
                 Within 6 months of implementation, our client experienced dramatic improvements across all key metrics:
@@ -184,13 +210,16 @@ const CaseStudyDetail: React.FC = () => {
           
           {/* Call to Action */}
           <div className="glassmorphism p-8 md:p-12 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to achieve similar results?</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 gradient-text">Ready to achieve similar results?</h2>
             <p className="text-ohwow-white-muted max-w-2xl mx-auto mb-8">
               Our team of digital marketing and automation experts are ready to transform your real estate brand's performance.
             </p>
-            <button className="oh-wow-button-primary mx-auto">
+            <button className="oh-wow-button-primary mx-auto text-lg px-8 py-4 animate-pulse">
               Book Your Free Consultation
             </button>
+            <p className="mt-4 text-sm text-ohwow-white-muted">
+              No obligation. Our team will contact you within 24 hours.
+            </p>
           </div>
           
           {/* Navigation between case studies */}
@@ -198,7 +227,7 @@ const CaseStudyDetail: React.FC = () => {
             <Link to="/case-studies" className="oh-wow-button-secondary">
               All Case Studies
             </Link>
-            <Link to="/case-studies" className="oh-wow-button-primary flex items-center">
+            <Link to={`/case-studies/${nextCaseStudy.id}`} className="oh-wow-button-primary flex items-center">
               Next Case Study
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>

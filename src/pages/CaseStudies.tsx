@@ -36,7 +36,7 @@ const CaseStudies: React.FC = () => {
               Back to Home
             </Link>
             
-            <h1 className="text-3xl md:text-5xl font-bold mb-4">Success Stories</h1>
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 gradient-text">Success Stories</h1>
             <p className="text-xl text-ohwow-white-muted max-w-3xl">
               Real results from our digital marketing, automation, and AI solutions for real estate developers
             </p>
@@ -77,7 +77,7 @@ const CaseStudies: React.FC = () => {
           
           {/* Call to Action */}
           <div className="mt-16 glassmorphism p-8 md:p-12 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to achieve similar results?</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 gradient-text">Ready to achieve similar results?</h2>
             <p className="text-ohwow-white-muted max-w-2xl mx-auto mb-8">
               Our team of digital marketing and automation experts are ready to transform your real estate brand's performance.
             </p>

@@ -8,6 +8,7 @@ import MarketingShowcase from '../components/MarketingShowcase';
 import Testimonials from '../components/Testimonials';
 import ContactCta from '../components/ContactCta';
 import Footer from '../components/Footer';
+import { Link } from 'react-router-dom';
 
 const Index: React.FC = () => {
   useEffect(() => {
@@ -21,7 +22,18 @@ const Index: React.FC = () => {
       <Hero />
       <WhyOhWow />
       <Solutions />
-      <MarketingShowcase />
+      <div id="marketing-showcase-section" className="relative">
+        <MarketingShowcase />
+        <div className="container mx-auto text-center mt-8 mb-16">
+          <h3 className="text-2xl font-bold mb-4">See How We Deliver Results</h3>
+          <Link 
+            to="/case-studies" 
+            className="oh-wow-button-primary inline-flex items-center"
+          >
+            View All Case Studies
+          </Link>
+        </div>
+      </div>
       <Testimonials />
       <ContactCta />
       <Footer />
