@@ -17,7 +17,8 @@ const ContactCta: React.FC = () => {
     name: '',
     email: '',
     phone: '',
-    company: ''
+    company: '',
+    cityState: ''
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +29,7 @@ const ContactCta: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.email || !formData.phone) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.company || !formData.cityState) {
       toast({
         title: "Missing information",
         description: "Please fill in all required fields",
@@ -51,8 +52,9 @@ const ContactCta: React.FC = () => {
           email: formData.email,
           phone: formData.phone,
           company: formData.company,
+          cityState: formData.cityState,
           subject: 'New Strategy Call Request from Oh.Wow Website',
-          message: `New consultation request from ${formData.name} at ${formData.company}.`,
+          message: `New consultation request from ${formData.name} at ${formData.company} (${formData.cityState}).`,
           from_name: 'Oh.Wow Website'
         }),
       });
@@ -68,7 +70,8 @@ const ContactCta: React.FC = () => {
           name: '',
           email: '',
           phone: '',
-          company: ''
+          company: '',
+          cityState: ''
         });
       } else {
         throw new Error('Form submission failed');
@@ -160,6 +163,18 @@ const ContactCta: React.FC = () => {
                     value={formData.company}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:border-ohwow-purple"
+                    required
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="cityState"
+                    placeholder="City/State"
+                    value={formData.cityState}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:border-ohwow-purple"
+                    required
                   />
                 </div>
                 <div className="text-center mt-4">

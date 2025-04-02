@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   CheckCircle2, 
   Mail, 
@@ -9,9 +9,21 @@ import {
   BarChart3, 
   ChevronRight 
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import ContactFormModal from './ContactFormModal';
 
 const MarketingShowcase: React.FC = () => {
+  const navigate = useNavigate();
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formSource, setFormSource] = useState('Marketing Showcase');
+  
+  const openContactForm = (source: string) => {
+    setFormSource(`Marketing Showcase: ${source}`);
+    setIsFormOpen(true);
+  };
+  
+  const closeContactForm = () => setIsFormOpen(false);
+  
   const marketingCategories = [
     {
       title: "📌 High-Impact Digital Marketing & Branding",
@@ -49,94 +61,111 @@ const MarketingShowcase: React.FC = () => {
   ];
 
   return (
-    <section id="digital-marketing" className="section-padding bg-ohwow-black relative">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-ohwow-lime/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-ohwow-purple/20 rounded-full blur-3xl"></div>
-      </div>
-      
-      <div className="container mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text inline-block">
-            Comprehensive Digital Marketing Strategy
-          </h2>
-          <p className="text-xl text-ohwow-white-muted max-w-3xl mx-auto">
-            Mapping digital marketing, funnels & automation into your real estate growth strategy
-          </p>
+    <>
+      <section id="digital-marketing" className="section-padding bg-ohwow-black relative">
+        {/* Background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-ohwow-lime/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-ohwow-purple/20 rounded-full blur-3xl"></div>
         </div>
+        
+        <div className="container mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text inline-block">
+              Comprehensive Digital Marketing Strategy
+            </h2>
+            <p className="text-xl text-ohwow-white-muted max-w-3xl mx-auto">
+              Mapping digital marketing, funnels & automation into your real estate growth strategy
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {marketingCategories.map((category, index) => (
-            <div key={index} className="glassmorphism p-6 md:p-8">
-              <h3 className="text-xl font-bold mb-6 text-ohwow-white">{category.title}</h3>
-              <ul className="space-y-4">
-                {category.items.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-ohwow-lime mt-1 flex-shrink-0" />
-                    <span className="text-ohwow-white-muted">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div className="glassmorphism p-6 md:p-8 mb-12">
-          <h3 className="text-xl font-bold mb-6 text-ohwow-white">🛠️ FINAL OPTIMIZATION STRATEGY</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {optimizationStrategies.map((strategy, i) => (
-              <div key={i} className="bg-white/5 p-5 rounded-lg border border-ohwow-purple/30 flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-ohwow-lime mt-1 flex-shrink-0" />
-                <span className="text-ohwow-white">{strategy}</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {marketingCategories.map((category, index) => (
+              <div key={index} className="glassmorphism p-6 md:p-8">
+                <h3 className="text-xl font-bold mb-6 text-ohwow-white">{category.title}</h3>
+                <ul className="space-y-4">
+                  {category.items.map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-ohwow-lime mt-1 flex-shrink-0" />
+                      <span className="text-ohwow-white-muted">{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-gradient-to-br from-ohwow-purple/20 to-ohwow-purple/5 p-6 rounded-xl border border-ohwow-purple/30 flex flex-col items-center text-center">
-            <div className="p-4 bg-ohwow-purple/20 rounded-full mb-4">
-              <Target className="w-8 h-8 text-ohwow-lime" />
+          <div className="glassmorphism p-6 md:p-8 mb-12">
+            <h3 className="text-xl font-bold mb-6 text-ohwow-white">🛠️ FINAL OPTIMIZATION STRATEGY</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {optimizationStrategies.map((strategy, i) => (
+                <div key={i} className="bg-white/5 p-5 rounded-lg border border-ohwow-purple/30 flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-ohwow-lime mt-1 flex-shrink-0" />
+                  <span className="text-ohwow-white">{strategy}</span>
+                </div>
+              ))}
             </div>
-            <h4 className="text-lg font-bold mb-2">Precision Ad Targeting</h4>
-            <p className="text-ohwow-white-muted mb-4">Hyper-targeted campaigns for 40% higher conversion rates</p>
-            <Link to="/case-studies" className="text-ohwow-lime font-medium flex items-center hover:underline">
-              View case study <ChevronRight className="w-4 h-4 ml-1" />
-            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-gradient-to-br from-ohwow-purple/20 to-ohwow-purple/5 p-6 rounded-xl border border-ohwow-purple/30 flex flex-col items-center text-center">
+              <div className="p-4 bg-ohwow-purple/20 rounded-full mb-4">
+                <Target className="w-8 h-8 text-ohwow-lime" />
+              </div>
+              <h4 className="text-lg font-bold mb-2">Precision Ad Targeting</h4>
+              <p className="text-ohwow-white-muted mb-4">Hyper-targeted campaigns for 40% higher conversion rates</p>
+              <button 
+                className="text-ohwow-lime font-medium flex items-center hover:underline"
+                onClick={() => openContactForm('Precision Ad Targeting')}
+              >
+                Get this for your business <ChevronRight className="w-4 h-4 ml-1" />
+              </button>
+            </div>
+            
+            <div className="bg-gradient-to-br from-ohwow-purple/20 to-ohwow-purple/5 p-6 rounded-xl border border-ohwow-purple/30 flex flex-col items-center text-center">
+              <div className="p-4 bg-ohwow-purple/20 rounded-full mb-4">
+                <BarChart3 className="w-8 h-8 text-ohwow-lime" />
+              </div>
+              <h4 className="text-lg font-bold mb-2">Multi-Step Conversion Funnel</h4>
+              <p className="text-ohwow-white-muted mb-4">Turning cold prospects into committed buyers</p>
+              <button 
+                className="text-ohwow-lime font-medium flex items-center hover:underline"
+                onClick={() => openContactForm('Multi-Step Conversion Funnel')}
+              >
+                Get this for your business <ChevronRight className="w-4 h-4 ml-1" />
+              </button>
+            </div>
+            
+            <div className="bg-gradient-to-br from-ohwow-purple/20 to-ohwow-purple/5 p-6 rounded-xl border border-ohwow-purple/30 flex flex-col items-center text-center md:col-span-2 lg:col-span-1">
+              <div className="p-4 bg-ohwow-purple/20 rounded-full mb-4">
+                <Mail className="w-8 h-8 text-ohwow-lime" />
+              </div>
+              <h4 className="text-lg font-bold mb-2">Email Marketing Automation</h4>
+              <p className="text-ohwow-white-muted mb-4">Personalized sequences with 65% open rates</p>
+              <button 
+                className="text-ohwow-lime font-medium flex items-center hover:underline"
+                onClick={() => openContactForm('Email Marketing Automation')}
+              >
+                Get this for your business <ChevronRight className="w-4 h-4 ml-1" />
+              </button>
+            </div>
           </div>
           
-          <div className="bg-gradient-to-br from-ohwow-purple/20 to-ohwow-purple/5 p-6 rounded-xl border border-ohwow-purple/30 flex flex-col items-center text-center">
-            <div className="p-4 bg-ohwow-purple/20 rounded-full mb-4">
-              <BarChart3 className="w-8 h-8 text-ohwow-lime" />
-            </div>
-            <h4 className="text-lg font-bold mb-2">Multi-Step Conversion Funnel</h4>
-            <p className="text-ohwow-white-muted mb-4">Turning cold prospects into committed buyers</p>
-            <Link to="/case-studies" className="text-ohwow-lime font-medium flex items-center hover:underline">
-              View case study <ChevronRight className="w-4 h-4 ml-1" />
-            </Link>
-          </div>
-          
-          <div className="bg-gradient-to-br from-ohwow-purple/20 to-ohwow-purple/5 p-6 rounded-xl border border-ohwow-purple/30 flex flex-col items-center text-center md:col-span-2 lg:col-span-1">
-            <div className="p-4 bg-ohwow-purple/20 rounded-full mb-4">
-              <Mail className="w-8 h-8 text-ohwow-lime" />
-            </div>
-            <h4 className="text-lg font-bold mb-2">Email Marketing Automation</h4>
-            <p className="text-ohwow-white-muted mb-4">Personalized sequences with 65% open rates</p>
-            <Link to="/case-studies" className="text-ohwow-lime font-medium flex items-center hover:underline">
-              View case study <ChevronRight className="w-4 h-4 ml-1" />
-            </Link>
+          <div className="text-center mt-12">
+            <button 
+              className="oh-wow-button-primary inline-flex items-center"
+              onClick={() => navigate('/case-studies')}
+            >
+              Explore All Case Studies
+              <ChevronRight className="ml-1 h-5 w-5" />
+            </button>
           </div>
         </div>
-        
-        <div className="text-center mt-12">
-          <Link to="/case-studies" className="oh-wow-button-primary inline-flex items-center">
-            Explore All Case Studies
-            <ChevronRight className="ml-1 h-5 w-5" />
-          </Link>
-        </div>
-      </div>
-    </section>
+      </section>
+      
+      {/* Contact Form Modal */}
+      <ContactFormModal isOpen={isFormOpen} onClose={closeContactForm} source={formSource} />
+    </>
   );
 };
 

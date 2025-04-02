@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   LineChart, 
@@ -12,6 +11,8 @@ import {
   ExternalLink,
   ArrowRight
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import ContactFormModal from './ContactFormModal';
 
 interface Solution {
   id: string;
@@ -20,6 +21,7 @@ interface Solution {
   description: string;
   before: string;
   after: string;
+  caseStudyId?: string;
 }
 
 const solutions: Solution[] = [
@@ -29,7 +31,8 @@ const solutions: Solution[] = [
     title: "🚀 Sales Acceleration & CRM",
     description: "Custom solutions to track, nurture and convert leads automatically, optimizing every step of your sales funnel.",
     before: "Manual lead tracking and follow-ups with high drop-off rates",
-    after: "Automated 24/7 lead nurturing with 300% improvement in conversion"
+    after: "Automated 24/7 lead nurturing with 300% improvement in conversion",
+    caseStudyId: "oceanview-towers"
   },
   {
     id: "marketing",
@@ -90,105 +93,136 @@ const solutions: Solution[] = [
 ];
 
 const Solutions: React.FC = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<string>(solutions[0].id);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  
+  const openContactForm = () => setIsFormOpen(true);
+  const closeContactForm = () => setIsFormOpen(false);
 
   const activeSolution = solutions.find(solution => solution.id === activeTab);
+  
+  const handleCaseStudyClick = () => {
+    if (activeSolution?.caseStudyId) {
+      navigate(`/case-studies/${activeSolution.caseStudyId}`);
+    } else {
+      navigate('/case-studies');
+    }
+  };
 
   return (
-    <section id="services" className="section-padding bg-ohwow-black relative">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 right-1/3 w-96 h-96 bg-ohwow-purple/15 rounded-full blur-3xl"></div>
-      </div>
-      
-      <div className="container mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text inline-block">
-            Solutions & Services
-          </h2>
-          <p className="text-xl text-ohwow-white-muted max-w-3xl mx-auto">
-            Comprehensive digital marketing, automation & conversion strategies for real estate growth
-          </p>
+    <>
+      <section id="services" className="section-padding bg-ohwow-black relative">
+        {/* Background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 right-1/3 w-96 h-96 bg-ohwow-purple/15 rounded-full blur-3xl"></div>
         </div>
+        
+        <div className="container mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text inline-block">
+              Solutions & Services
+            </h2>
+            <p className="text-xl text-ohwow-white-muted max-w-3xl mx-auto">
+              Comprehensive digital marketing, automation & conversion strategies for real estate growth
+            </p>
+          </div>
 
-        {/* Tab Navigation - scrollable on mobile */}
-        <div className="flex overflow-x-auto pb-3 mb-10 gap-3 justify-start md:justify-center">
-          {solutions.map((solution) => (
-            <button
-              key={solution.id}
-              onClick={() => setActiveTab(solution.id)}
-              className={`px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
-                activeTab === solution.id
-                  ? 'bg-ohwow-purple text-white font-medium'
-                  : 'bg-white/5 hover:bg-white/10 text-ohwow-white-muted'
-              }`}
-            >
-              {solution.icon}
-              <span className="inline">{solution.title.split(' ')[0]}</span>
-            </button>
-          ))}
-        </div>
+          {/* Tab Navigation - scrollable on mobile */}
+          <div className="flex overflow-x-auto pb-3 mb-10 gap-3 justify-start md:justify-center">
+            {solutions.map((solution) => (
+              <button
+                key={solution.id}
+                onClick={() => setActiveTab(solution.id)}
+                className={`px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
+                  activeTab === solution.id
+                    ? 'bg-ohwow-purple text-white font-medium'
+                    : 'bg-white/5 hover:bg-white/10 text-ohwow-white-muted'
+                }`}
+              >
+                {solution.icon}
+                <span className="inline">{solution.title.split(' ')[0]}</span>
+              </button>
+            ))}
+          </div>
 
-        {/* Active Tab Content */}
-        {activeSolution && (
-          <div className="glassmorphism p-8 md:p-10 animate-fade-in">
-            <div className="flex flex-col lg:flex-row gap-8">
-              <div className="lg:w-1/2">
-                <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                  {activeSolution.title}
-                </h3>
-                <p className="text-ohwow-white-muted mb-6">
-                  {activeSolution.description}
-                </p>
+          {/* Active Tab Content */}
+          {activeSolution && (
+            <div className="glassmorphism p-8 md:p-10 animate-fade-in">
+              <div className="flex flex-col lg:flex-row gap-8">
+                <div className="lg:w-1/2">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                    {activeSolution.title}
+                  </h3>
+                  <p className="text-ohwow-white-muted mb-6">
+                    {activeSolution.description}
+                  </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  <div className="bg-white/5 p-5 rounded-xl border border-white/10">
-                    <h4 className="text-ohwow-purple font-semibold mb-2 flex items-center gap-2">
-                      <span className="inline-block px-2 py-1 bg-white/5 rounded text-sm">BEFORE</span>
-                    </h4>
-                    <p className="text-ohwow-white-muted">
-                      {activeSolution.before}
-                    </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div className="bg-white/5 p-5 rounded-xl border border-white/10">
+                      <h4 className="text-ohwow-purple font-semibold mb-2 flex items-center gap-2">
+                        <span className="inline-block px-2 py-1 bg-white/5 rounded text-sm">BEFORE</span>
+                      </h4>
+                      <p className="text-ohwow-white-muted">
+                        {activeSolution.before}
+                      </p>
+                    </div>
+                    <div className="bg-ohwow-lime/5 p-5 rounded-xl border border-ohwow-lime/20">
+                      <h4 className="text-ohwow-lime font-semibold mb-2 flex items-center gap-2">
+                        <span className="inline-block px-2 py-1 bg-ohwow-lime/20 text-ohwow-lime rounded text-sm">AFTER</span>
+                      </h4>
+                      <p className="text-ohwow-white">
+                        {activeSolution.after}
+                      </p>
+                    </div>
                   </div>
-                  <div className="bg-ohwow-lime/5 p-5 rounded-xl border border-ohwow-lime/20">
-                    <h4 className="text-ohwow-lime font-semibold mb-2 flex items-center gap-2">
-                      <span className="inline-block px-2 py-1 bg-ohwow-lime/20 text-ohwow-lime rounded text-sm">AFTER</span>
-                    </h4>
-                    <p className="text-ohwow-white">
-                      {activeSolution.after}
-                    </p>
+
+                  <div className="flex flex-wrap gap-4">
+                    <button 
+                      className="oh-wow-button-primary flex items-center"
+                      onClick={openContactForm}
+                    >
+                      Book a Free Strategy Call
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </button>
+                    <button 
+                      className="oh-wow-button-secondary flex items-center"
+                      onClick={handleCaseStudyClick}
+                    >
+                      View Related Case Study
+                    </button>
                   </div>
                 </div>
-
-                <div className="flex flex-wrap gap-4">
-                  <button className="oh-wow-button-primary flex items-center">
-                    Book a Free Strategy Call
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </button>
-                  <a href="/case-studies" className="oh-wow-button-secondary flex items-center">
-                    View Related Case Study
-                  </a>
-                </div>
-              </div>
-              
-              <div className="lg:w-1/2 bg-white/5 rounded-2xl overflow-hidden relative min-h-[300px] flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="mb-6 p-4 rounded-full bg-ohwow-purple/10 inline-block">
-                    {activeSolution.icon}
+                
+                <div className="lg:w-1/2 bg-white/5 rounded-2xl overflow-hidden relative min-h-[300px] flex items-center justify-center">
+                  <div className="text-center p-8">
+                    <div className="mb-6 p-4 rounded-full bg-ohwow-purple/10 inline-block">
+                      {activeSolution.icon}
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">See Our Success Story</h3>
+                    <p className="text-ohwow-white-muted mb-4">View how we implemented this solution for a leading property developer</p>
+                    <button 
+                      className="inline-flex items-center text-ohwow-lime hover:underline"
+                      onClick={handleCaseStudyClick}
+                    >
+                      View Case Study 
+                      <ExternalLink className="ml-1 h-4 w-4" />
+                    </button>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">See Our Success Story</h3>
-                  <p className="text-ohwow-white-muted mb-4">View how we implemented this solution for a leading property developer</p>
-                  <a href="/case-studies" className="inline-flex items-center text-ohwow-lime hover:underline">
-                    View Case Study 
-                    <ExternalLink className="ml-1 h-4 w-4" />
-                  </a>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
-    </section>
+          )}
+        </div>
+      </section>
+    
+      {/* Contact Form Modal */}
+      <ContactFormModal 
+        isOpen={isFormOpen} 
+        onClose={closeContactForm} 
+        source={`Solution: ${activeSolution?.title}`}
+      />
+    </>
   );
 };
 

@@ -2,11 +2,16 @@
 import React, { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import ContactFormModal from './ContactFormModal';
 
 const CaseStudyMidCta: React.FC = () => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  
+  const openContactForm = () => setIsFormOpen(true);
+  const closeContactForm = () => setIsFormOpen(false);
 
   const handleDemoRequest = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,6 +50,8 @@ const CaseStudyMidCta: React.FC = () => {
           description: "We'll contact you shortly to schedule your demo.",
         });
         setEmail('');
+        // Open the full contact form for more information
+        openContactForm();
       } else {
         throw new Error('Form submission failed');
       }
@@ -61,33 +68,42 @@ const CaseStudyMidCta: React.FC = () => {
   };
 
   return (
-    <div className="my-8 p-6 bg-ohwow-purple/15 border border-ohwow-purple/30 rounded-lg text-center">
-      <h3 className="text-xl font-bold mb-3">Want to see these strategies in action?</h3>
-      <form onSubmit={handleDemoRequest} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-        <input
-          type="email"
-          placeholder="Your Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 px-4 py-2 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:border-ohwow-purple"
-          required
-        />
-        <button 
-          type="submit" 
-          className="oh-wow-button-primary whitespace-nowrap"
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin inline" />
-              Processing...
-            </>
-          ) : (
-            "Schedule a Demo"
-          )}
-        </button>
-      </form>
-    </div>
+    <>
+      <div className="my-8 p-6 bg-ohwow-purple/15 border border-ohwow-purple/30 rounded-lg text-center">
+        <h3 className="text-xl font-bold mb-3">Want to see these strategies in action?</h3>
+        <form onSubmit={handleDemoRequest} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <input
+            type="email"
+            placeholder="Your Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="flex-1 px-4 py-2 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:border-ohwow-purple"
+            required
+          />
+          <button 
+            type="submit" 
+            className="oh-wow-button-primary whitespace-nowrap"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin inline" />
+                Processing...
+              </>
+            ) : (
+              "Schedule a Demo"
+            )}
+          </button>
+        </form>
+      </div>
+      
+      {/* Contact Form Modal */}
+      <ContactFormModal 
+        isOpen={isFormOpen} 
+        onClose={closeContactForm}
+        source="Case Study Mid-Content CTA"
+      />
+    </>
   );
 };
 

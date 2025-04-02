@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getCaseStudyById, caseStudies } from '../data/caseStudies';
+
+// Components
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CaseStudyHero from '../components/CaseStudyHero';
@@ -16,14 +18,17 @@ const CaseStudyDetail: React.FC = () => {
   const caseStudy = id ? getCaseStudyById(id) : undefined;
 
   useEffect(() => {
+    // Redirect if case study not found
     if (!caseStudy) {
       navigate('/case-studies', { replace: true });
+      return;
     }
     
     // Scroll to top when component mounts
     window.scrollTo(0, 0);
   }, [caseStudy, navigate]);
 
+  // Return null during redirect
   if (!caseStudy) {
     return null;
   }
@@ -36,28 +41,30 @@ const CaseStudyDetail: React.FC = () => {
     <div className="min-h-screen bg-ohwow-black text-white">
       <Navbar />
       
-      <div className="pt-24 md:pt-32 pb-16">
+      <main className="pt-24 md:pt-32 pb-16">
         <div className="container mx-auto px-4 md:px-8">
           {/* Hero Section */}
           <CaseStudyHero caseStudy={caseStudy} />
           
           {/* Case Study Content */}
-          <div className="glassmorphism p-6 md:p-8 mb-12">
+          <section className="glassmorphism p-6 md:p-8 mb-12">
             <div className="prose prose-lg prose-invert max-w-none">
               <CaseStudyContent caseStudy={caseStudy} id={id || ''} />
               
               {/* Mid-content CTA */}
               <CaseStudyMidCta />
             </div>
-          </div>
+          </section>
           
           {/* Call to Action */}
-          <CaseStudyContactForm />
+          <section>
+            <CaseStudyContactForm />
+          </section>
           
           {/* Navigation between case studies */}
           <CaseStudyNavigation nextCaseStudy={nextCaseStudy} />
         </div>
-      </div>
+      </main>
       
       <Footer />
     </div>

@@ -1,14 +1,20 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { CaseStudyProps } from './CaseStudyCard';
+import ContactFormModal from './ContactFormModal';
 
 interface CaseStudyHeroProps {
   caseStudy: CaseStudyProps;
 }
 
 const CaseStudyHero: React.FC<CaseStudyHeroProps> = ({ caseStudy }) => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  
+  const openContactForm = () => setIsFormOpen(true);
+  const closeContactForm = () => setIsFormOpen(false);
+
   return (
     <>
       {/* Breadcrumbs */}
@@ -46,7 +52,10 @@ const CaseStudyHero: React.FC<CaseStudyHeroProps> = ({ caseStudy }) => {
           
           {/* Floating CTA */}
           <div className="mt-8 md:hidden">
-            <button className="oh-wow-button-primary w-full">
+            <button 
+              className="oh-wow-button-primary w-full"
+              onClick={openContactForm}
+            >
               Get Similar Results for Your Project
             </button>
           </div>
@@ -63,12 +72,22 @@ const CaseStudyHero: React.FC<CaseStudyHeroProps> = ({ caseStudy }) => {
           
           {/* Desktop CTA next to image */}
           <div className="hidden md:block mt-6">
-            <button className="oh-wow-button-primary w-full">
+            <button 
+              className="oh-wow-button-primary w-full"
+              onClick={openContactForm}
+            >
               Get Similar Results for Your Project
             </button>
           </div>
         </div>
       </div>
+      
+      {/* Contact Form Modal */}
+      <ContactFormModal 
+        isOpen={isFormOpen} 
+        onClose={closeContactForm}
+        source={`Case Study: ${caseStudy.title}`}
+      />
     </>
   );
 };

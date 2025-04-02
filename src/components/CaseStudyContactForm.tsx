@@ -10,7 +10,8 @@ const CaseStudyContactForm: React.FC = () => {
     name: '',
     email: '',
     phone: '',
-    company: ''
+    company: '',
+    cityState: ''
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +22,7 @@ const CaseStudyContactForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.email || !formData.phone) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.company || !formData.cityState) {
       toast({
         title: "Missing information",
         description: "Please fill in all required fields",
@@ -44,8 +45,9 @@ const CaseStudyContactForm: React.FC = () => {
           email: formData.email,
           phone: formData.phone,
           company: formData.company,
+          cityState: formData.cityState,
           subject: 'Case Study Consultation Request',
-          message: `Consultation request from ${formData.name} after viewing a case study.`,
+          message: `Consultation request from ${formData.name} at ${formData.company} (${formData.cityState}) after viewing a case study.`,
           from_name: 'Oh.Wow Website'
         }),
       });
@@ -61,7 +63,8 @@ const CaseStudyContactForm: React.FC = () => {
           name: '',
           email: '',
           phone: '',
-          company: ''
+          company: '',
+          cityState: ''
         });
       } else {
         throw new Error('Form submission failed');
@@ -123,10 +126,22 @@ const CaseStudyContactForm: React.FC = () => {
           <input
             type="text"
             name="company"
-            placeholder="Company Name (Optional)"
+            placeholder="Company Name"
             value={formData.company}
             onChange={handleChange}
             className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:border-ohwow-purple"
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="cityState"
+            placeholder="City/State"
+            value={formData.cityState}
+            onChange={handleChange}
+            className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:border-ohwow-purple"
+            required
           />
         </div>
         <button
