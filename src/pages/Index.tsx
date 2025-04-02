@@ -9,6 +9,7 @@ import Testimonials from '../components/Testimonials';
 import ContactCta from '../components/ContactCta';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 
 const Index: React.FC = () => {
   useEffect(() => {
@@ -31,6 +32,7 @@ const Index: React.FC = () => {
             className="oh-wow-button-primary inline-flex items-center"
           >
             View All Case Studies
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </div>
       </div>

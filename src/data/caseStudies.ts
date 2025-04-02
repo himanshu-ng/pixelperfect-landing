@@ -151,6 +151,156 @@ export const caseStudies: CaseStudyProps[] = [
         value: "↑ 310%"
       }
     ]
+  },
+  {
+    id: "fabHomz-development",
+    title: "FabHomz: Landing Page & Ad Campaign Revamp",
+    description: "Transforming an underperforming digital presence into a lead generation powerhouse for this Indian real estate brand.",
+    category: "Digital Marketing",
+    image: "https://images.unsplash.com/photo-1542744173-05336fcc7ad4?auto=format&fit=crop&q=80&w=1000",
+    results: [
+      {
+        label: "Lead Generation",
+        value: "↑ 280%"
+      },
+      {
+        label: "Ad Cost",
+        value: "↓ 65%"
+      },
+      {
+        label: "Lead Quality",
+        value: "↑ 170%"
+      },
+      {
+        label: "Conversions",
+        value: "↑ 210%"
+      }
+    ]
+  },
+  {
+    id: "terra-vista-properties",
+    title: "Terra Vista: WhatsApp & SMS Automation",
+    description: "Integrating omnichannel communication for faster lead response and higher engagement rates.",
+    category: "Marketing Automation",
+    image: "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&q=80&w=1000",
+    results: [
+      {
+        label: "Response Time",
+        value: "↓ 96%"
+      },
+      {
+        label: "Engagement Rate",
+        value: "↑ 320%"
+      },
+      {
+        label: "Lead Conversion",
+        value: "↑ 185%"
+      },
+      {
+        label: "Support Tickets",
+        value: "↓ 75%"
+      }
+    ]
+  },
+  {
+    id: "metro-heights",
+    title: "Metro Heights: Stakeholder CRM Implementation",
+    description: "Centralizing investor, broker, and customer data for seamless communication and relationship management.",
+    category: "Stakeholder Engagement",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+    results: [
+      {
+        label: "Data Accessibility",
+        value: "↑ 240%"
+      },
+      {
+        label: "Stakeholder Satisfaction",
+        value: "↑ 92%"
+      },
+      {
+        label: "Communication Time",
+        value: "↓ 70%"
+      },
+      {
+        label: "Deal Closures",
+        value: "↑ 150%"
+      }
+    ]
+  },
+  {
+    id: "sunlight-estates",
+    title: "Sunlight Estates: Email Sequence Optimization",
+    description: "Creating behavior-based, personalized email journeys that convert prospects at every stage of the funnel.",
+    category: "Email Marketing",
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=1000",
+    results: [
+      {
+        label: "Open Rates",
+        value: "↑ 215%"
+      },
+      {
+        label: "Click-through",
+        value: "↑ 175%"
+      },
+      {
+        label: "Site Revisits",
+        value: "↑ 290%"
+      },
+      {
+        label: "Conversions",
+        value: "↑ 180%"
+      }
+    ]
+  },
+  {
+    id: "cityscape-developments",
+    title: "Cityscape: AI-Powered Lead Qualification",
+    description: "Implementing intelligent lead scoring and qualification to prioritize high-intent prospects automatically.",
+    category: "AI & Automation",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=1000",
+    results: [
+      {
+        label: "Sales Efficiency",
+        value: "↑ 310%"
+      },
+      {
+        label: "Lead Quality",
+        value: "↑ 260%"
+      },
+      {
+        label: "Conversion Rate",
+        value: "↑ 190%"
+      },
+      {
+        label: "Sales Cycle",
+        value: "↓ 60%"
+      }
+    ]
+  },
+  {
+    id: "royal-garden-properties",
+    title: "Royal Garden: Conversion Funnel Redesign",
+    description: "Rebuilding the entire customer journey to eliminate drop-offs and maximize conversions at each stage.",
+    category: "Conversion Funnels",
+    image: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&q=80&w=1000",
+    results: [
+      {
+        label: "Funnel Completion",
+        value: "↑ 230%"
+      },
+      {
+        label: "Abandonment",
+        value: "↓ 75%"
+      },
+      {
+        label: "Sales Value",
+        value: "↑ 180%"
+      },
+      {
+        label: "ROI",
+        value: "340%"
+      }
+    ]
   }
 ];
 
