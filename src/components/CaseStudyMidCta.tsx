@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import ContactFormModal from './ContactFormModal';
+import { addContactToBrevo } from '../utils/brevoService';
+
+// Environment variables
+const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY || '';
 
 const CaseStudyMidCta: React.FC = () => {
   const { toast } = useToast();
@@ -28,6 +32,7 @@ const CaseStudyMidCta: React.FC = () => {
     setIsLoading(true);
     
     try {
+      // Submit to Web3Forms first
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
@@ -44,17 +49,35 @@ const CaseStudyMidCta: React.FC = () => {
       
       const data = await response.json();
       
-      if (data.success) {
-        toast({
-          title: "Demo requested!",
-          description: "We'll contact you shortly to schedule your demo.",
-        });
-        setEmail('');
-        // Open the full contact form for more information
-        openContactForm();
-      } else {
+      if (!data.success) {
         throw new Error('Form submission failed');
       }
+      
+      // If Web3Forms is successful, try to add to Brevo
+      if (BREVO_API_KEY) {
+        try {
+          // We have limited data, but we'll add what we can
+          await addContactToBrevo({
+            name: email.split('@')[0], // Use email username as temporary name
+            email: email,
+            phone: '',  // We don't have this yet
+            company: '', // We don't have this yet
+            cityState: '', // We don't have this yet
+            source: 'Case Study Mid-CTA'
+          }, BREVO_API_KEY);
+        } catch (brevoError) {
+          console.error('Brevo submission error:', brevoError);
+          // Continue even if Brevo fails
+        }
+      }
+      
+      toast({
+        title: "Demo requested!",
+        description: "We'll contact you shortly to schedule your demo.",
+      });
+      setEmail('');
+      // Open the full contact form for more information
+      openContactForm();
     } catch (error) {
       toast({
         title: "Something went wrong",

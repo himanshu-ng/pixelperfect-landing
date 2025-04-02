@@ -10,6 +10,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Loader2, X } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { addContactToBrevo } from '../utils/brevoService';
+
+// Environment variables
+const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY || '';
 
 interface ContactFormModalProps {
   isOpen: boolean;
@@ -49,7 +53,8 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose, so
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      // First submit to Web3Forms (existing functionality)
+      const web3FormResponse = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,24 +72,47 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose, so
         }),
       });
       
-      const data = await response.json();
+      const web3FormData = await web3FormResponse.json();
       
-      if (data.success) {
-        toast({
-          title: "Request submitted successfully!",
-          description: "Our team will contact you within 24 hours.",
-        });
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          company: '',
-          cityState: ''
-        });
-        onClose();
-      } else {
-        throw new Error('Form submission failed');
+      if (!web3FormData.success) {
+        throw new Error('Web3Forms submission failed');
       }
+
+      // If Web3Forms is successful, then submit to Brevo API
+      if (BREVO_API_KEY) {
+        try {
+          await addContactToBrevo({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            company: formData.company,
+            cityState: formData.cityState,
+            source: source
+          }, BREVO_API_KEY);
+          
+          // If Brevo fails, we still consider the form submission successful
+          // as long as Web3Forms succeeded
+        } catch (brevoError) {
+          console.error('Brevo submission error:', brevoError);
+        }
+      }
+
+      // Show success message
+      toast({
+        title: "Request submitted successfully!",
+        description: "Our team will contact you within 24 hours.",
+      });
+      
+      // Reset form and close modal
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        cityState: ''
+      });
+      onClose();
+      
     } catch (error) {
       toast({
         title: "Something went wrong",

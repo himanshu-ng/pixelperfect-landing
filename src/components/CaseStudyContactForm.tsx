@@ -2,6 +2,10 @@
 import React, { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { addContactToBrevo } from '../utils/brevoService';
+
+// Environment variables
+const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY || '';
 
 const CaseStudyContactForm: React.FC = () => {
   const { toast } = useToast();
@@ -34,6 +38,7 @@ const CaseStudyContactForm: React.FC = () => {
     setIsSubmitting(true);
     
     try {
+      // First submit to Web3Forms
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
@@ -54,21 +59,39 @@ const CaseStudyContactForm: React.FC = () => {
       
       const data = await response.json();
       
-      if (data.success) {
-        toast({
-          title: "Success!",
-          description: "Your consultation request has been submitted. We'll be in touch soon!",
-        });
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          company: '',
-          cityState: ''
-        });
-      } else {
+      if (!data.success) {
         throw new Error('Form submission failed');
       }
+
+      // If Web3Forms is successful, then submit to Brevo API
+      if (BREVO_API_KEY) {
+        try {
+          await addContactToBrevo({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            company: formData.company,
+            cityState: formData.cityState,
+            source: 'Case Study Page'
+          }, BREVO_API_KEY);
+        } catch (brevoError) {
+          console.error('Brevo submission error:', brevoError);
+          // We still consider the form submission successful if Web3Forms worked
+        }
+      }
+      
+      toast({
+        title: "Success!",
+        description: "Your consultation request has been submitted. We'll be in touch soon!",
+      });
+      
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        cityState: ''
+      });
     } catch (error) {
       toast({
         title: "Something went wrong",
