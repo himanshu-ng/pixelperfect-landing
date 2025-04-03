@@ -1,12 +1,11 @@
-
 import React, { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import ContactFormModal from './ContactFormModal';
 import { addContactToBrevo } from '../utils/brevoService';
 
-// Environment variables
-const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY || '';
+// Hardcoded Brevo API key with fallback to environment variable
+const BREVO_API_KEY = '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' || import.meta.env.VITE_BREVO_API_KEY || '';
 
 const CaseStudyMidCta: React.FC = () => {
   const { toast } = useToast();
@@ -53,22 +52,20 @@ const CaseStudyMidCta: React.FC = () => {
         throw new Error('Form submission failed');
       }
       
-      // If Web3Forms is successful, try to add to Brevo
-      if (BREVO_API_KEY) {
-        try {
-          // We have limited data, but we'll add what we can
-          await addContactToBrevo({
-            name: email.split('@')[0], // Use email username as temporary name
-            email: email,
-            phone: '',  // We don't have this yet
-            company: '', // We don't have this yet
-            cityState: '', // We don't have this yet
-            source: 'Case Study Mid-CTA'
-          }, BREVO_API_KEY);
-        } catch (brevoError) {
-          console.error('Brevo submission error:', brevoError);
-          // Continue even if Brevo fails
-        }
+      // Always try to add to Brevo regardless of environment variable
+      try {
+        // We have limited data, but we'll add what we can
+        await addContactToBrevo({
+          name: email.split('@')[0], // Use email username as temporary name
+          email: email,
+          phone: '',  // We don't have this yet
+          company: '', // We don't have this yet
+          cityState: '', // We don't have this yet
+          source: 'Case Study Mid-CTA'
+        }, BREVO_API_KEY);
+      } catch (brevoError) {
+        console.error('Brevo submission error:', brevoError);
+        // Continue even if Brevo fails
       }
       
       toast({

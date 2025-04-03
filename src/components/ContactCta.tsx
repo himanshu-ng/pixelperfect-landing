@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { addContactToBrevo } from '../utils/brevoService';
 
-// Environment variables
-const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY || '';
+// Hardcoded Brevo API key with fallback to environment variable
+const BREVO_API_KEY = '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' || import.meta.env.VITE_BREVO_API_KEY || '';
 
 const benefits = [
   "Personalized analysis of your current marketing & sales strategy",
@@ -70,21 +69,19 @@ const ContactCta: React.FC = () => {
         throw new Error('Form submission failed');
       }
 
-      // If Web3Forms is successful, then submit to Brevo API
-      if (BREVO_API_KEY) {
-        try {
-          await addContactToBrevo({
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            company: formData.company,
-            cityState: formData.cityState,
-            source: 'Homepage CTA'
-          }, BREVO_API_KEY);
-        } catch (brevoError) {
-          console.error('Brevo submission error:', brevoError);
-          // Continue even if Brevo fails
-        }
+      // Always try to submit to Brevo API
+      try {
+        await addContactToBrevo({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          cityState: formData.cityState,
+          source: 'Homepage CTA'
+        }, BREVO_API_KEY);
+      } catch (brevoError) {
+        console.error('Brevo submission error:', brevoError);
+        // Continue even if Brevo fails
       }
       
       toast({
