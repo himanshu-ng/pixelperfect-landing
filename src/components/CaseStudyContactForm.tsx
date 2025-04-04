@@ -3,8 +3,8 @@ import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { addContactToBrevo } from '../utils/brevoService';
 
-// Hardcoded Brevo API key with fallback to environment variable
-const BREVO_API_KEY = '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' || import.meta.env.VITE_BREVO_API_KEY || '';
+// Properly define Brevo API key
+const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY || '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';
 
 const CaseStudyContactForm: React.FC = () => {
   const { toast } = useToast();

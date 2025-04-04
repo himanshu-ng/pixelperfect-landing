@@ -1,12 +1,11 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Loader2, ArrowRight, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import ContactFormModal from './ContactFormModal';
 import { addContactToBrevo } from '../utils/brevoService';
 
-// Hardcoded Brevo API key with fallback to environment variable
-const BREVO_API_KEY = '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' || import.meta.env.VITE_BREVO_API_KEY || '';
+// Properly define Brevo API key
+const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY || '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';
 
 const CaseStudyMidCta: React.FC = () => {
   const { toast } = useToast();

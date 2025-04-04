@@ -130,17 +130,18 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
     };
   }, []);
   
-  // Clone children and add stagger delay to each
+  // Clone children and add stagger delay to each, fixing type issue
   const staggeredChildren = React.Children.map(children, (child, index) => {
     if (React.isValidElement(child)) {
+      // Use proper typing for cloneElement
       return React.cloneElement(child, {
+        ...child.props,
+        className: `${child.props.className || ''} transition-opacity transition-transform duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`,
         style: {
           ...child.props.style,
-          opacity: isVisible ? 1 : 0,
-          transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-          transition: `all 500ms cubic-bezier(0.16, 1, 0.3, 1) ${index * staggerDelay}ms`,
+          transitionDelay: `${index * staggerDelay}ms`,
         },
-      });
+      } as React.HTMLAttributes<HTMLElement>);
     }
     return child;
   });
