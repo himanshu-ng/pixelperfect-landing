@@ -50,8 +50,8 @@ const CaseStudyHero: React.FC<CaseStudyHeroProps> = ({ caseStudy }) => {
             ))}
           </div>
           
-          {/* Floating CTA */}
-          <div className="mt-8 md:hidden">
+          {/* Floating CTA - Added z-index to ensure it's always on top */}
+          <div className="mt-8 md:hidden relative z-50">
             <button 
               className="oh-wow-button-primary w-full"
               onClick={openContactForm}
@@ -70,8 +70,8 @@ const CaseStudyHero: React.FC<CaseStudyHeroProps> = ({ caseStudy }) => {
             />
           </div>
           
-          {/* Desktop CTA next to image */}
-          <div className="hidden md:block mt-6">
+          {/* Desktop CTA next to image - Added z-index to ensure it's always on top */}
+          <div className="hidden md:block mt-6 relative z-50">
             <button 
               className="oh-wow-button-primary w-full"
               onClick={openContactForm}

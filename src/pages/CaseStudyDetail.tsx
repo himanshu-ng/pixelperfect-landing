@@ -41,23 +41,27 @@ const CaseStudyDetail: React.FC = () => {
     <div className="min-h-screen bg-ohwow-black text-white">
       <Navbar />
       
-      <main className="pt-24 md:pt-32 pb-16">
+      <main className="pt-24 md:pt-32 pb-16 relative">
         <div className="container mx-auto px-4 md:px-8">
-          {/* Hero Section */}
-          <CaseStudyHero caseStudy={caseStudy} />
+          {/* Hero Section - Make sure it's on top of other sections */}
+          <div className="relative z-10">
+            <CaseStudyHero caseStudy={caseStudy} />
+          </div>
           
-          {/* Case Study Content */}
-          <section className="glassmorphism p-6 md:p-8 mb-12">
+          {/* Case Study Content - Lower z-index than the hero */}
+          <section className="glassmorphism p-6 md:p-8 mb-12 relative z-0">
             <div className="prose prose-lg prose-invert max-w-none">
               <CaseStudyContent caseStudy={caseStudy} id={id || ''} />
               
-              {/* Mid-content CTA */}
-              <CaseStudyMidCta />
+              {/* Mid-content CTA - Give it a higher z-index */}
+              <div className="relative z-10">
+                <CaseStudyMidCta />
+              </div>
             </div>
           </section>
           
-          {/* Call to Action */}
-          <section>
+          {/* Call to Action - Also with a higher z-index */}
+          <section className="relative z-10">
             <CaseStudyContactForm />
           </section>
           
