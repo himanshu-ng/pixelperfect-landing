@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -36,7 +36,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -60,16 +60,40 @@
 
   body {
     @apply bg-ohwow-black text-ohwow-white font-inter antialiased;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(94, 23, 235, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(170, 255, 0, 0.1) 0%, transparent 40%);
+    background-attachment: fixed;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-montserrat font-bold;
+    @apply font-montserrat font-bold tracking-tight;
+  }
+  
+  input, textarea, select, button {
+    @apply transition-all duration-200;
+  }
+  
+  ::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-ohwow-gray-200 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-ohwow-gray-400;
   }
 }
 
 @layer components {
   .section-padding {
-    @apply py-16 md:py-24 px-4 md:px-8 lg:px-12;
+    @apply py-20 md:py-32 px-4 md:px-8 lg:px-12;
   }
   
   .gradient-text {
@@ -77,15 +101,48 @@
   }
   
   .oh-wow-button-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-ohwow-purple to-ohwow-purple-light hover:from-ohwow-purple-light hover:to-ohwow-purple text-white font-semibold rounded-md transition-all duration-300 transform hover:scale-105 shadow-lg;
+    @apply px-6 py-3 bg-gradient-to-r from-ohwow-purple to-ohwow-purple-light hover:from-ohwow-purple-light hover:to-ohwow-purple text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-button active:scale-95 outline-none ring-offset-2 ring-offset-ohwow-black focus:ring-2 focus:ring-ohwow-purple;
   }
   
   .oh-wow-button-secondary {
-    @apply px-6 py-3 border-2 border-ohwow-lime text-ohwow-lime hover:bg-ohwow-lime/10 font-semibold rounded-md transition-all duration-300 transform hover:scale-105;
+    @apply px-6 py-3 border-2 border-ohwow-lime text-ohwow-lime hover:bg-ohwow-lime/10 font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 outline-none ring-offset-2 ring-offset-ohwow-black focus:ring-2 focus:ring-ohwow-lime;
+  }
+  
+  .oh-wow-input {
+    @apply w-full px-4 py-3 bg-ohwow-gray-100 border border-ohwow-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-ohwow-purple focus:border-ohwow-purple transition-all duration-300;
   }
   
   .glassmorphism {
-    @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl;
+    @apply bg-ohwow-black-lighter/80 backdrop-blur-lg border border-ohwow-gray-200 rounded-2xl shadow-card transition-all duration-300;
+  }
+  
+  .premium-card {
+    @apply glassmorphism hover:border-ohwow-purple/30 hover:bg-gradient-to-b hover:from-ohwow-black-lighter/90 hover:to-ohwow-purple/5 hover:shadow-lg transition-all duration-500;
+  }
+  
+  .feature-card {
+    @apply glassmorphism hover:border-ohwow-purple/30 hover:-translate-y-1 transition-all duration-300;
+  }
+  
+  .interactive-icon {
+    @apply transition-all duration-300 transform hover:text-ohwow-lime hover:scale-110;
+  }
+  
+  /* Hover effects */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+  
+  .hover-glow {
+    @apply transition-shadow duration-300 hover:shadow-neon;
+  }
+  
+  .hover-glow-lime {
+    @apply transition-shadow duration-300 hover:shadow-neon-lime;
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
   }
   
   /* Additional styles for case studies */
@@ -107,5 +164,81 @@
   
   .prose ul {
     @apply list-none pl-0;
+  }
+  
+  /* Animations */
+  .reveal-on-scroll {
+    @apply opacity-0 translate-y-8;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .reveal-on-scroll.revealed {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  .stagger-item {
+    @apply opacity-0;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: calc(var(--index) * 100ms);
+  }
+  
+  /* Scroll indicator */
+  .scroll-indicator {
+    @apply absolute left-1/2 -translate-x-1/2 flex flex-col items-center;
+    bottom: 2rem;
+    animation: fadeInOut 2s ease-in-out infinite;
+  }
+  
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  
+  /* Responsive containers */
+  .responsive-container {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Section titles */
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-6 gradient-text inline-block;
+  }
+  
+  .section-description {
+    @apply text-xl text-ohwow-white-muted max-w-3xl mx-auto;
+  }
+  
+  /* Stats display */
+  .stat-card {
+    @apply bg-ohwow-gray-100 backdrop-blur-sm rounded-xl p-4 hover:bg-ohwow-gray-200 transition-all duration-300;
+  }
+  
+  .stat-value {
+    @apply text-2xl md:text-3xl font-semibold text-ohwow-lime;
+  }
+  
+  .stat-label {
+    @apply text-xs text-ohwow-white-muted uppercase tracking-wider;
+  }
+  
+  /* 3D button effect */
+  .button-3d {
+    @apply relative;
+    transform-style: preserve-3d;
+    transition: transform 0.2s;
+  }
+  
+  .button-3d:active {
+    transform: translateY(4px);
+  }
+  
+  /* Gradient borders */
+  .gradient-border {
+    @apply relative rounded-2xl p-[1px] overflow-hidden;
+    background: linear-gradient(to right, rgba(94, 23, 235, 0.5), rgba(170, 255, 0, 0.3));
+  }
+  
+  .gradient-border-content {
+    @apply rounded-2xl bg-ohwow-black-lighter;
   }
 }

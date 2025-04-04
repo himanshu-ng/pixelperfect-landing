@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import CaseStudies from "./pages/CaseStudies";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
 import NotFound from "./pages/NotFound";
+import PageTransition from "./components/PageTransition";
 
 const queryClient = new QueryClient();
 
@@ -17,13 +18,15 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <PageTransition>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </PageTransition>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

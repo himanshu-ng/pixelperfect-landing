@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Loader2 } from 'lucide-react';
+
+import React, { useState, useEffect, useRef } from 'react';
+import { Loader2, ArrowRight, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import ContactFormModal from './ContactFormModal';
 import { addContactToBrevo } from '../utils/brevoService';
@@ -12,9 +13,32 @@ const CaseStudyMidCta: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const componentRef = useRef<HTMLDivElement>(null);
   
   const openContactForm = () => setIsFormOpen(true);
   const closeContactForm = () => setIsFormOpen(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    
+    if (componentRef.current) {
+      observer.observe(componentRef.current);
+    }
+    
+    return () => {
+      if (componentRef.current) {
+        observer.unobserve(componentRef.current);
+      }
+    };
+  }, []);
 
   const handleDemoRequest = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,32 +113,73 @@ const CaseStudyMidCta: React.FC = () => {
 
   return (
     <>
-      <div className="my-8 p-6 bg-ohwow-purple/15 border border-ohwow-purple/30 rounded-lg text-center">
-        <h3 className="text-xl font-bold mb-3">Want to see these strategies in action?</h3>
-        <form onSubmit={handleDemoRequest} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-          <input
-            type="email"
-            placeholder="Your Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 px-4 py-2 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:border-ohwow-purple"
-            required
-          />
-          <button 
-            type="submit" 
-            className="oh-wow-button-primary whitespace-nowrap"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin inline" />
-                Processing...
-              </>
-            ) : (
-              "Schedule a Demo"
-            )}
-          </button>
-        </form>
+      <div 
+        ref={componentRef}
+        className={`my-12 p-8 rounded-2xl transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        style={{
+          background: 'linear-gradient(120deg, rgba(94, 23, 235, 0.15), rgba(94, 23, 235, 0.05))',
+          boxShadow: '0 10px 30px -5px rgba(94, 23, 235, 0.2), 0 0 0 1px rgba(94, 23, 235, 0.1) inset',
+          borderRadius: '24px',
+        }}
+      >
+        <div className="relative overflow-hidden">
+          {/* Animated particles */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {Array.from({ length: 15 }).map((_, index) => (
+              <div
+                key={index}
+                className="absolute bg-ohwow-purple-light/30 rounded-full"
+                style={{
+                  width: `${Math.random() * 5 + 2}px`,
+                  height: `${Math.random() * 5 + 2}px`,
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  opacity: Math.random() * 0.5 + 0.3,
+                  transform: `scale(${Math.random() * 1 + 0.5})`,
+                  animation: `float ${Math.random() * 8 + 5}s infinite ease-in-out`,
+                  animationDelay: `${Math.random() * 5}s`
+                }}
+              />
+            ))}
+          </div>
+
+          <div className="text-center relative z-10">
+            <div className="flex items-center justify-center mb-4">
+              <Sparkles className="text-ohwow-lime mr-2 h-5 w-5 animate-pulse" />
+              <h3 className="text-2xl font-bold gradient-text">Want to see these strategies in action?</h3>
+            </div>
+            <p className="text-lg text-ohwow-white-muted mb-6 max-w-2xl mx-auto">
+              Schedule a personalized demo to discover how we can tailor our solutions to your specific real estate needs.
+            </p>
+            <form onSubmit={handleDemoRequest} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 px-4 py-3 bg-ohwow-black/30 border border-ohwow-purple/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-ohwow-purple transition-all duration-300"
+                required
+              />
+              <button 
+                type="submit" 
+                className="oh-wow-button-primary whitespace-nowrap group flex items-center justify-center"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin inline" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    Schedule a Demo
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
       
       {/* Contact Form Modal */}

@@ -1,11 +1,12 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { 
   Brain, 
   LineChart, 
   Users, 
   Box,
-  CheckCircle2
+  CheckCircle2,
+  Sparkles
 } from 'lucide-react';
 
 const features = [
@@ -50,6 +51,7 @@ const features = [
 const WhyOhWow: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeFeature, setActiveFeature] = useState(-1);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,6 +65,10 @@ const WhyOhWow: React.FC = () => {
       { threshold: 0.1 }
     );
 
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
     if (featureRefs.current) {
       featureRefs.current.forEach((ref) => {
         if (ref) observer.observe(ref);
@@ -70,6 +76,9 @@ const WhyOhWow: React.FC = () => {
     }
 
     return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
       if (featureRefs.current) {
         featureRefs.current.forEach((ref) => {
           if (ref) observer.unobserve(ref);
@@ -81,18 +90,26 @@ const WhyOhWow: React.FC = () => {
   return (
     <section id="why-us" className="section-padding bg-ohwow-black relative" ref={sectionRef}>
       {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-ohwow-purple/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-ohwow-lime/10 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 overflow-hidden -z-10">
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-ohwow-purple/20 rounded-full blur-[100px] animate-float"></div>
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-ohwow-lime/10 rounded-full blur-[120px] animate-float" style={{ animationDelay: '2s' }}></div>
+        
+        {/* Grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-30"></div>
       </div>
       
       <div className="container mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text inline-block">
-            Why Oh.Wow?
-          </h2>
-          <p className="text-xl text-ohwow-white-muted max-w-3xl mx-auto">
-            👉 Beyond Digital. Beyond Branding. We Build Real Estate Success.
+        <div className="text-center mb-16 opacity-0 translate-y-8 transition-all duration-700 ease-out" ref={el => featureRefs.current[0] = el}>
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="w-12 h-0.5 bg-gradient-to-r from-ohwow-purple to-transparent rounded-full"></div>
+            <h2 className="text-3xl md:text-5xl font-bold gradient-text inline-block">
+              Why Oh.Wow?
+            </h2>
+            <div className="w-12 h-0.5 bg-gradient-to-l from-ohwow-purple to-transparent rounded-full"></div>
+          </div>
+          <p className="text-xl text-ohwow-white-muted max-w-3xl mx-auto flex items-center justify-center">
+            <Sparkles className="w-5 h-5 text-ohwow-lime mr-2" />
+            Beyond Digital. Beyond Branding. We Build Real Estate Success.
           </p>
         </div>
 
@@ -100,22 +117,24 @@ const WhyOhWow: React.FC = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              ref={(el) => (featureRefs.current[index] = el)}
-              className="glassmorphism p-6 md:p-8 opacity-0 translate-y-8 transition-all duration-700 ease-out"
+              ref={(el) => (featureRefs.current[index + 1] = el)}
+              className={`feature-card p-8 cursor-pointer opacity-0 translate-y-8 transition-all duration-700 ease-out ${activeFeature === index ? 'border-ohwow-purple/50 shadow-lg bg-gradient-to-b from-ohwow-black-lighter/90 to-ohwow-purple/5' : ''}`}
               style={{ transitionDelay: `${index * 100}ms` }}
+              onMouseEnter={() => setActiveFeature(index)}
+              onMouseLeave={() => setActiveFeature(-1)}
             >
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-lg bg-ohwow-purple/15 border border-ohwow-purple/30 text-ohwow-lime">
+              <div className="flex items-start gap-6">
+                <div className={`p-4 rounded-2xl transition-all duration-300 ${activeFeature === index ? 'bg-ohwow-purple/20 border border-ohwow-purple/40 text-ohwow-lime scale-110' : 'bg-ohwow-purple/15 border border-ohwow-purple/30 text-ohwow-lime'}`}>
                   {feature.icon}
                 </div>
                 <div className="flex-1">
-                  <div className="text-ohwow-lime mb-1">{feature.number}</div>
-                  <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                  <ul className="space-y-2">
+                  <div className={`text-ohwow-lime mb-2 font-semibold transition-all duration-300 ${activeFeature === index ? 'text-xl' : 'text-lg'}`}>{feature.number}</div>
+                  <h3 className={`text-xl font-bold mb-4 transition-all duration-300 ${activeFeature === index ? 'text-ohwow-lime text-2xl' : ''}`}>{feature.title}</h3>
+                  <ul className="space-y-3">
                     {feature.description.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-5 h-5 text-ohwow-lime mt-0.5 flex-shrink-0" />
-                        <span className="text-ohwow-white-muted">{item}</span>
+                      <li key={i} className={`flex items-start gap-3 group transition-all duration-300 ${activeFeature === index ? 'transform translate-x-2' : ''}`} style={{ transitionDelay: `${i * 50}ms` }}>
+                        <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 transition-colors duration-300 ${activeFeature === index ? 'text-ohwow-lime' : 'text-ohwow-purple'}`} />
+                        <span className={`transition-colors duration-300 ${activeFeature === index ? 'text-ohwow-white' : 'text-ohwow-white-muted'}`}>{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -125,12 +144,17 @@ const WhyOhWow: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <div className="glassmorphism inline-block px-6 py-4">
-            <p className="text-lg font-semibold flex items-center justify-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-ohwow-lime" />
-              <span>Full-Scale Growth Strategies Tailored for Real Estate Developers.</span>
-            </p>
+        <div className="mt-16 text-center">
+          <div 
+            ref={(el) => (featureRefs.current[5] = el)}
+            className="gradient-border opacity-0 translate-y-8 transition-all duration-700 ease-out"
+          >
+            <div className="gradient-border-content px-8 py-5">
+              <p className="text-lg font-semibold flex items-center justify-center gap-3">
+                <CheckCircle2 className="w-6 h-6 text-ohwow-lime" />
+                <span>Full-Scale Growth Strategies Tailored for Real Estate Developers.</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
