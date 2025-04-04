@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import { ArrowRight, Check, Loader2 } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { addContactToBrevo } from '../utils/brevoService';
 
-// Properly define Brevo API key
-const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY || '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';
+import React from 'react';
+import { ArrowRight, Check } from 'lucide-react';
+import ContactForm from './shared/ContactForm';
 
 const benefits = [
   "Personalized analysis of your current marketing & sales strategy",
@@ -14,100 +11,6 @@ const benefits = [
 ];
 
 const ContactCta: React.FC = () => {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    cityState: ''
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.phone || !formData.company || !formData.cityState) {
-      toast({
-        title: "Missing information",
-        description: "Please fill in all required fields",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    setIsSubmitting(true);
-    
-    try {
-      // First submit to Web3Forms
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          access_key: 'fc248909-5a96-423e-a558-73c545fddc9e',
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          company: formData.company,
-          cityState: formData.cityState,
-          subject: 'New Strategy Call Request from Oh.Wow Website',
-          message: `New consultation request from ${formData.name} at ${formData.company} (${formData.cityState}).`,
-          from_name: 'Oh.Wow Website'
-        }),
-      });
-      
-      const data = await response.json();
-      
-      if (!data.success) {
-        throw new Error('Form submission failed');
-      }
-
-      // Always try to submit to Brevo API
-      try {
-        await addContactToBrevo({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          company: formData.company,
-          cityState: formData.cityState,
-          source: 'Homepage CTA'
-        }, BREVO_API_KEY);
-      } catch (brevoError) {
-        console.error('Brevo submission error:', brevoError);
-        // Continue even if Brevo fails
-      }
-      
-      toast({
-        title: "Request submitted successfully!",
-        description: "Our team will contact you within 24 hours.",
-      });
-      
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        cityState: ''
-      });
-    } catch (error) {
-      toast({
-        title: "Something went wrong",
-        description: "There was an error submitting your request. Please try again.",
-        variant: "destructive",
-      });
-      console.error("Form submission error:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <section id="contact" className="section-padding bg-ohwow-black relative">
       {/* Background gradient */}
@@ -141,85 +44,20 @@ const ContactCta: React.FC = () => {
             </div>
             
             <div className="md:w-1/2">
-              <form className="space-y-4" onSubmit={handleSubmit}>
-                <div>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:border-ohwow-purple"
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:border-ohwow-purple"
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:border-ohwow-purple"
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    name="company"
-                    placeholder="Company Name"
-                    value={formData.company}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:border-ohwow-purple"
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    name="cityState"
-                    placeholder="City/State"
-                    value={formData.cityState}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:border-ohwow-purple"
-                    required
-                  />
-                </div>
-                <div className="text-center mt-4">
-                  <button 
-                    type="submit" 
-                    className="oh-wow-button-primary flex items-center justify-center mx-auto" 
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                        Processing...
-                      </>
-                    ) : (
-                      <>
-                        Schedule a Free Strategy Call
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </>
-                    )}
-                  </button>
-                  <p className="mt-4 text-sm text-ohwow-white-muted">
-                    No obligation. Our team will contact you within 24 hours.
-                  </p>
-                </div>
-              </form>
+              <ContactForm 
+                source="Homepage CTA"
+                subject="New Strategy Call Request from Oh.Wow Website"
+                successMessage="Our team will contact you within 24 hours."
+                submitButtonText={
+                  <>
+                    Schedule a Free Strategy Call
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </>
+                }
+              />
+              <p className="mt-4 text-sm text-ohwow-white-muted text-center">
+                No obligation. Our team will contact you within 24 hours.
+              </p>
             </div>
           </div>
         </div>
