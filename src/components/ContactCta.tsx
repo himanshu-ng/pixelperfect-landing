@@ -43,7 +43,7 @@ const ContactCta: React.FC = () => {
               </ul>
             </div>
             
-            <div className="md:w-1/2 relative z-20">
+            <div className="md:w-1/2 relative z-50">
               <ContactForm 
                 source="Homepage CTA"
                 subject="New Strategy Call Request from Oh.Wow Website"

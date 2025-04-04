@@ -115,7 +115,7 @@ const CaseStudyMidCta: React.FC = () => {
     <>
       <div 
         ref={componentRef}
-        className={`my-12 p-8 rounded-2xl transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} relative z-20`}
+        className={`my-12 p-8 rounded-2xl transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} relative z-50`}
         style={{
           background: 'linear-gradient(120deg, rgba(94, 23, 235, 0.15), rgba(94, 23, 235, 0.05))',
           boxShadow: '0 10px 30px -5px rgba(94, 23, 235, 0.2), 0 0 0 1px rgba(94, 23, 235, 0.1) inset',
@@ -143,7 +143,7 @@ const CaseStudyMidCta: React.FC = () => {
             ))}
           </div>
 
-          <div className="text-center relative z-30">
+          <div className="text-center relative z-50">
             <div className="flex items-center justify-center mb-4">
               <Sparkles className="text-ohwow-lime mr-2 h-5 w-5 animate-pulse" />
               <h3 className="text-2xl font-bold gradient-text">Want to see these strategies in action?</h3>
@@ -151,7 +151,7 @@ const CaseStudyMidCta: React.FC = () => {
             <p className="text-lg text-ohwow-white-muted mb-6 max-w-2xl mx-auto">
               Schedule a personalized demo to discover how we can tailor our solutions to your specific real estate needs.
             </p>
-            <form onSubmit={handleDemoRequest} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto relative z-40">
+            <form onSubmit={handleDemoRequest} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto relative z-50">
               <input
                 type="email"
                 placeholder="Your Email"
