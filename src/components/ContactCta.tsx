@@ -48,16 +48,15 @@ const ContactCta: React.FC = () => {
                 source="Homepage CTA"
                 subject="New Strategy Call Request from Oh.Wow Website"
                 successMessage="Our team will contact you within 24 hours."
-                submitButtonText={
-                  <>
-                    Schedule a Free Strategy Call
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </>
-                }
+                submitButtonText="Schedule a Free Strategy Call"
+                loadingText="Processing request..."
               />
-              <p className="mt-4 text-sm text-ohwow-white-muted text-center">
-                No obligation. Our team will contact you within 24 hours.
-              </p>
+              <div className="mt-4 flex items-center justify-center">
+                <ArrowRight className="mr-2 h-5 w-5 text-ohwow-lime" />
+                <p className="text-sm text-ohwow-white-muted">
+                  No obligation. Our team will contact you within 24 hours.
+                </p>
+              </div>
             </div>
           </div>
         </div>
